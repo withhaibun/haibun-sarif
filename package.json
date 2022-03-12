@@ -1,0 +1,22 @@
+{
+  "name": "@haibun/sarif",
+  "version": "1.6.0",
+  "description": "sarif index for haibun",
+  "files": [
+    "build/"
+  ],
+  "scripts": {
+    "prepublishOnly": "tsc -b .",
+    "test": "jest --config jest.config.ts",
+    "test-watch": "jest --config jest.config.ts --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@haibun/core": "^1.5.0",
+    "@haibun/domain-storage": "^1.6.0",
+    "@haibun/out-review": "^1.6.0",
+    "@types/sarif": "^2.1.4"
+  }
+}

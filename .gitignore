@@ -1,0 +1,8 @@
+node_modules/
+npm-debug.log
+packages/*/lib
+build/
+dist/
+coverage/
+*.tsbuildinfo
+out-tsc/
