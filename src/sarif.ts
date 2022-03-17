@@ -4,6 +4,7 @@ import { findStepperFromOption, stringOrError } from '@haibun/core/build/lib/uti
 
 import { TINDEX_SUMMARY } from "@haibun/out-review/build/generate-html";
 import { AStorage } from "@haibun/domain-storage/build/AStorage";
+import { EMediaTypes } from '@haibun/domain-storage';
 
 const TRACE_STORAGE = 'TRACE_STORAGE';
 const INDEX_STORAGE = 'INDEX_STORAGE';
@@ -43,7 +44,7 @@ class sarif extends AStepper implements IHasOptions {
     const sarif: Log = JSON.parse(contents);
 
     let results = [];
-    const dest = this.indexDest!.fromCaptureDir('sarif', 'indexed.json');
+    const dest = this.indexDest!.fromCaptureDir(EMediaTypes.json, 'sarif', 'indexed.json');
     for (const result of sarif.runs[0].results!) {
       const res: TINDEX_SUMMARY = {
         ok: result.level !== 'error',
@@ -52,7 +53,7 @@ class sarif extends AStepper implements IHasOptions {
       }
       results.push(res);
     }
-    await this.indexDest!.writeFile(dest, JSON.stringify(results));
+    await this.indexDest!.writeFile(dest, JSON.stringify(results), EMediaTypes.json);
   }
 }
 

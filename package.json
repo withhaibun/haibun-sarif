@@ -1,14 +1,25 @@
 {
   "name": "@haibun/sarif",
-  "version": "1.6.0",
+  "version": "1.8.0",
   "description": "sarif index for haibun",
+  "main": "build/sarif",
   "files": [
     "build/"
   ],
   "scripts": {
-    "prepublishOnly": "tsc -b .",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "eslint -c .eslintrc.json --ext .ts,.js src",
     "test": "jest --config jest.config.ts",
-    "test-watch": "jest --config jest.config.ts --watch"
+    "test-haibun": "build/cli.js test/projects/web",
+    "coverage": "jest --config jest.config.ts --coverage",
+    "test-watch": "jest --watch",
+    "build": "tsc -b .",
+    "tsc-watch": "tsc --watch",
+    "tsc": "tsc",
+    "prepare": "npm run build",
+    "prepublishOnly": "tsc -b .",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src"
   },
   "keywords": [],
   "author": "",
