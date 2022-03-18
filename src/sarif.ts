@@ -44,6 +44,7 @@ class sarif extends AStepper implements IHasOptions {
     const sarif: Log = JSON.parse(contents);
 
     let results = [];
+    const dir = this.indexDest!.fromCaptureDir(EMediaTypes.json, 'sarif');
     const dest = this.indexDest!.fromCaptureDir(EMediaTypes.json, 'sarif', 'indexed.json');
     for (const result of sarif.runs[0].results!) {
       const res: TINDEX_SUMMARY = {
@@ -53,6 +54,7 @@ class sarif extends AStepper implements IHasOptions {
       }
       results.push(res);
     }
+    await this.indexDest!.ensureDirExists(dir);
     await this.indexDest!.writeFile(dest, JSON.stringify(results), EMediaTypes.json);
   }
 }
