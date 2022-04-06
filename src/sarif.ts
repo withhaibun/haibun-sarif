@@ -44,8 +44,8 @@ class sarif extends AStepper implements IHasOptions {
     const sarif: Log = JSON.parse(contents);
 
     let results = [];
-    const dir = this.indexDest!.fromCaptureDir(EMediaTypes.json, 'sarif');
-    const dest = this.indexDest!.fromCaptureDir(EMediaTypes.json, 'sarif', 'indexed.json');
+    const dir = this.indexDest!.fromCaptureLocation(EMediaTypes.json, 'sarif');
+    const dest = this.indexDest!.fromCaptureLocation(EMediaTypes.json, 'sarif', 'indexed.json');
     for (const result of sarif.runs[0].results!) {
       const res: TINDEX_SUMMARY = {
         ok: result.level !== 'error',
