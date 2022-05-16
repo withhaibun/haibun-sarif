@@ -2,7 +2,7 @@ import { Log } from 'sarif';
 import { AStepper, IHasOptions, OK, TNamed, TWorld } from '@haibun/core/build/lib/defs';
 import { findStepperFromOption, stringOrError } from '@haibun/core/build/lib/util';
 
-import { TINDEX_SUMMARY } from "@haibun/out-review/build/generate-html";
+import { TIndexSummary, TIndexSummaryResult } from "@haibun/out-review/build/html-generator";
 import { AStorage } from "@haibun/domain-storage/build/AStorage";
 import { EMediaTypes } from '@haibun/domain-storage';
 
@@ -43,19 +43,26 @@ class sarif extends AStepper implements IHasOptions {
     const contents = await this.sarifSource!.readFile(loc, 'utf-8');
     const sarif: Log = JSON.parse(contents);
 
-    let results = [];
     const dir = this.indexDest!.fromCaptureLocation(EMediaTypes.json, 'sarif');
     const dest = this.indexDest!.fromCaptureLocation(EMediaTypes.json, 'sarif', 'indexed.json');
+    const ret = {
+      indexTitle: 'Parsed SARIF',
+      results: <TIndexSummaryResult[]>[]
+    }
+    const res: TIndexSummary = {
+      indexTitle: 'Parsed SARIF',
+      results: <TIndexSummaryResult[]>[]
+    }
     for (const result of sarif.runs[0].results!) {
-      const res: TINDEX_SUMMARY = {
+      const f = {
         ok: result.level !== 'error',
-        title: result.message.text || 'no message',
-        path: dest
+        featureTitle: result.message.text || 'no message',
+        sourcePath: dest
       }
-      results.push(res);
+      ret.results.push(f);
     }
     await this.indexDest!.ensureDirExists(dir);
-    await this.indexDest!.writeFile(dest, JSON.stringify(results), EMediaTypes.json);
+    await this.indexDest!.writeFile(dest, JSON.stringify(ret), EMediaTypes.json);
   }
 }
 
