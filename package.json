@@ -1,6 +1,6 @@
 {
   "name": "@haibun/sarif",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "sarif index for haibun",
   "main": "build/sarif",
   "files": [
