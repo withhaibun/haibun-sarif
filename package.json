@@ -25,9 +25,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@haibun/core": "^1.5.0",
-    "@haibun/domain-storage": "^1.6.0",
-    "@haibun/out-review": "^1.6.0",
+    "@haibun/core": "1.9",
+    "@haibun/domain-storage": "1.9",
+    "@haibun/out-review": "1.9",
     "@types/sarif": "^2.1.4"
   }
 }
